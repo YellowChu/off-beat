@@ -14,12 +14,16 @@ interface Hit {
 }
 const hits = ref<Hit[]>([])
 
-for (const hitTimeStamp of sampleTimestamps) {
-  hits.value.push({
-    hitTimeStamp: hitTimeStamp,
-    label: null,
-    hasIndicator: false,
-  })
+const initOrResetHits = () => {
+  hits.value = [];
+
+  for (const hitTimeStamp of sampleTimestamps) {
+    hits.value.push({
+      hitTimeStamp: hitTimeStamp,
+      label: null,
+      hasIndicator: false,
+    })
+  }
 }
 
 const nextHit = computed((): Hit | null => {
@@ -91,6 +95,7 @@ const spawnIndicator = (duration: number) => {
 }
 
 const play = () => {
+  initOrResetHits();
   playing.value = true;
 }
 
